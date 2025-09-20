@@ -2,6 +2,7 @@ package com.exe.localeventmanagement.Impl;
 
 import com.exe.localeventmanagement.Dto.EventDTO;
 import com.exe.localeventmanagement.Entity.Event;
+import com.exe.localeventmanagement.Entity.Headquarter;
 import com.exe.localeventmanagement.Repository.EventRepository;
 import com.exe.localeventmanagement.Service.EventService;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,11 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
 
     private  final EventRepository eventRepository;
+    private final HeadquarterRepository headquarterRepository;
 
-    public EventServiceImpl(EventRepository eventRepository) {
+    public EventServiceImpl(EventRepository eventRepository, HeadquarterRepository headquarterRepository) {
         this.eventRepository = eventRepository;
+        this.headquarterRepository = headquarterRepository;
     }
 
     @Override
@@ -44,7 +47,7 @@ public class EventServiceImpl implements EventService {
 
 
     //Convertir Entity a DTO
-    private  EventDTO convertirADTO(EventDTO eventDTO) {
+    private  EventDTO convertirADTO(Event event) {
         EventDTO eventDTO = new EventDTO();
         eventDTO.setEventId(eventDTO.getEventId());
         eventDTO.setEventName(eventDTO.getEventName());
@@ -63,7 +66,10 @@ public class EventServiceImpl implements EventService {
         event.setEventName(eventDTO.getEventName());
         event.setEventQuota(eventDTO.getEventQuota());
         event.setEventDate(eventDTO.getEventDate());
-        event.setHeadquarter(eventDTO.getHeadquarterId());
+
+        if (eventDTO.getHeadquarterId() != null) {
+            Headquarter headquarter = headquarterRepository
+        }
 
         return event;
     }
