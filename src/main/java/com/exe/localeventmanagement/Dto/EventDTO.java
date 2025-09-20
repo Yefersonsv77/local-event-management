@@ -10,8 +10,10 @@ import lombok.*;
 public class EventDTO {
 
     private Long eventId;
-    private String eventName;
     private String eventDate;
-    private double eventQuota;
+    private String eventName;
+    private Double eventQuota;
+
+    private Long headquarterId;
 
 }

@@ -1,6 +1,7 @@
 package com.exe.localeventmanagement.Entity;
 
 
+import com.exe.localeventmanagement.Enum.TicketStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,24 +11,24 @@ import lombok.Data;
 
 public class Ticket {
 
-    //identificador unico del ticket
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ticket_id", nullable = false, unique = true)
+    @Column (name = "ticket_id", nullable = false, unique = true, updatable = false)
     private Long ticketId;
 
-    //foreign key del evento
-    @ManyToOne
-    @JoinColumn(name = "event_id", nullable = false, foreignKey = @ForeignKey(name = "FK_Event_Ticket"))
-    private Event event;
+    @Enumerated (EnumType.STRING)
+    @Column (name = "status", nullable = false, length = 50)
+    private TicketStatus status;
 
-    //Codigo del ticket
-    @Column(name = "ticket_code", nullable = false, unique = true, length = 100)
+    @Column (name = "ticket_code", nullable = false, length = 100, unique = true)
     private String ticketCode;
 
-    //Estado del ticket (disponible, vendido, cancelado)
-    @Column(name = "status", nullable = false, length = 50)
-    private String status;
+    @Column (name = "price", nullable = false, precision = 10, scale = 2)
+    private Double price;
+
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
 
 
 }
